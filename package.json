@@ -1,16 +1,16 @@
 {
   "name": "toeic_by_claude",
   "version": "1.0.0",
-  "main": "index.js",
-  "homepage": "https://Sat0121.github.io/TOEIC_by_Claude",
+  "description": "TOEIC Grammar Learning Program",
+  "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "deploy": "gh-pages -d public"
+    "start": "node app.js",
+    "deploy": "gh-pages -d ."
   },
+  "homepage": "https://Sat0121.github.io/TOEIC_by_Claude",
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
   "devDependencies": {
     "gh-pages": "^6.3.0"
   }
