@@ -1,8 +1,6 @@
 // js/progress.js
 
-// 進捗状況の管理
 const Progress = {
-    // 進捗データの取得
     getProgress() {
         const progress = localStorage.getItem('toeicProgress');
         return progress ? JSON.parse(progress) : {
@@ -11,18 +9,15 @@ const Progress = {
         };
     },
 
-    // 進捗データの保存
     saveProgress(data) {
         localStorage.setItem('toeicProgress', JSON.stringify(data));
     },
 
-    // 特定の日の完了状態を取得
     isDayCompleted(day) {
         const progress = this.getProgress();
         return progress.completedDays.includes(day);
     },
 
-    // 特定の日を完了としてマーク
     markDayAsCompleted(day) {
         const progress = this.getProgress();
         if (!progress.completedDays.includes(day)) {
@@ -30,50 +25,86 @@ const Progress = {
             progress.totalProgress = (progress.completedDays.length / 7) * 100;
             this.saveProgress(progress);
         }
+        this.updateAllProgressDisplays();
     },
 
-    // 進捗率の計算
     calculateProgress() {
         const progress = this.getProgress();
         return progress.totalProgress;
+    },
+
+    resetProgress() {
+        localStorage.removeItem('toeicProgress');
+        this.updateAllProgressDisplays();
+        // ページをリロード
+        window.location.reload();
+    },
+
+    updateAllProgressDisplays() {
+        const progress = this.getProgress();
+        const percentage = progress.totalProgress;
+        
+        // 進捗テキストの更新
+        const progressText = document.getElementById('progressPercentage');
+        if (progressText) {
+            progressText.textContent = Math.round(percentage);
+        }
+
+        // プログレスバーの更新
+        const progressBar = document.querySelector('.total-progress-bar');
+        if (progressBar) {
+            progressBar.style.width = `${percentage}%`;
+        }
     }
 };
 
-// ページ読み込み時の処理
 document.addEventListener('DOMContentLoaded', function() {
+    // 進捗表示の初期更新
+    Progress.updateAllProgressDisplays();
+
     // 現在のページがコンテンツページかどうかを確認
     const currentPage = window.location.pathname;
     const dayMatch = currentPage.match(/day(\d+)\.html$/);
     
     if (dayMatch) {
         const dayNumber = dayMatch[1];
-        const completeButton = document.createElement('button');
-        completeButton.classList.add('complete-button');
-        completeButton.textContent = Progress.isDayCompleted(dayNumber) 
-            ? '学習完了済み' 
-            : 'このレッスンを完了とする';
+        const completeButton = document.createElement('div');
+        completeButton.classList.add('complete-button-container');
         
-        completeButton.addEventListener('click', function() {
+        const isCompleted = Progress.isDayCompleted(dayNumber);
+        completeButton.innerHTML = `
+            <button class="action-button ${isCompleted ? 'completed' : ''}" 
+                    ${isCompleted ? 'disabled' : ''}>
+                <span class="button-text">${isCompleted ? '学習完了済み' : 'このレッスンを完了とする'}</span>
+                ${isCompleted ? '<span class="check-icon">✓</span>' : ''}
+            </button>
+        `;
+        
+        completeButton.querySelector('button').addEventListener('click', function() {
             Progress.markDayAsCompleted(dayNumber);
-            completeButton.textContent = '学習完了済み';
-            completeButton.disabled = true;
+            this.classList.add('completed');
+            this.disabled = true;
+            this.innerHTML = '<span class="button-text">学習完了済み</span><span class="check-icon">✓</span>';
         });
 
-        document.querySelector('.container').appendChild(completeButton);
+        document.querySelector('.container').insertBefore(
+            completeButton, 
+            document.querySelector('.answer')
+        );
     }
-    // ランディングページの場合、プログレスバーを更新
-    else if (currentPage.endsWith('index.html') || currentPage === '/') {
-        const progress = Progress.getProgress();
-        progress.completedDays.forEach(day => {
-            const progressBar = document.querySelector(`.day-${day} .progress-bar`);
-            if (progressBar) {
-                progressBar.style.width = '100%';
-            }
-        });
 
-        const totalProgress = document.querySelector('.total-progress-bar');
-        if (totalProgress) {
-            totalProgress.style.width = `${Progress.calculateProgress()}%`;
+    // リセットボタンの追加（全ページ共通）
+    const resetButton = document.createElement('button');
+    resetButton.classList.add('reset-button');
+    resetButton.textContent = '進捗をリセット';
+    resetButton.addEventListener('click', function() {
+        if (confirm('進捗をリセットしてもよろしいですか？')) {
+            Progress.resetProgress();
         }
+    });
+
+    const progressContainer = document.querySelector('.progress-text');
+    if (progressContainer) {
+        progressContainer.appendChild(resetButton);
     }
 });
