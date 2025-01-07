@@ -1,11 +1,215 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
 <head>
-    <title>TOEIC_by_Claude</title>
-    <link rel="stylesheet" href="css/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1週間でマスター - TOEIC文法学習 | Week 1</title>
+    <link rel="stylesheet" href="css/common.css">
+    <style>
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .study-card {
+            background: var(--card-color);
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .study-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .study-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background-color: var(--accent-color);
+        }
+
+        .day-label {
+            color: var(--accent-color);
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .study-button {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            text-decoration: none;
+            border-radius: 25px;
+            margin-top: 1rem;
+            transition: background-color 0.3s ease;
+            text-align: center;
+        }
+
+        .study-button:hover {
+            background-color: var(--secondary-color);
+        }
+
+        .progress-container {
+            margin-top: 1rem;
+            background-color: #eee;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 6px;
+            background-color: var(--accent-color);
+            transition: width 0.3s ease;
+        }
+
+        .overview {
+            margin: 2rem 0;
+            padding: 2rem;
+            background: var(--card-color);
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+        }
+    </style>
 </head>
 <body>
-    <h1>ようこそ！</h1>
-    <p>これは私の最初のウェブサイトです。</p>
+    <header>
+        <div class="header-content">
+            <h1>1週間でマスター！TOEIC文法学習プログラム</h1>
+            <p>基礎から応用まで、7日間で学ぶ実践的な英文法</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="overview">
+            <h2>プログラムの特徴</h2>
+            <ul>
+                <li>TOEICでよく出題される文法項目に特化</li>
+                <li>ビジネスシーンを想定した実践的な例文</li>
+                <li>毎日の練習問題で着実に力をつける</li>
+                <li>解説付きの練習問題で理解を深める</li>
+            </ul>
+        </div>
+
+        <div class="card-grid">
+            <div class="study-card">
+                <div class="day-label">Day 1</div>
+                <h2>品詞の基本</h2>
+                <ul>
+                    <li>名詞の種類と用法</li>
+                    <li>動詞の基本形と活用</li>
+                    <li>形容詞の位置と比較</li>
+                    <li>副詞の種類と使い方</li>
+                </ul>
+                <div class="progress-container">
+                    <div class="progress-bar" style="width: 14%"></div>
+                </div>
+                <a href="pages/day1.html" class="study-button">学習を始める</a>
+            </div>
+
+            <div class="study-card">
+                <div class="day-label">Day 2</div>
+                <h2>時制</h2>
+                <ul>
+                    <li>現在時制の使い方</li>
+                    <li>過去時制の表現</li>
+                    <li>未来時制の形式</li>
+                    <li>時制の一致</li>
+                </ul>
+                <div class="progress-container">
+                    <div class="progress-bar" style="width: 28%"></div>
+                </div>
+                <a href="pages/day2.html" class="study-button">学習を始める</a>
+            </div>
+
+            <div class="study-card">
+                <div class="day-label">Day 3</div>
+                <h2>完了形</h2>
+                <ul>
+                    <li>現在完了の用法</li>
+                    <li>過去完了の使い方</li>
+                    <li>完了形と時制の関係</li>
+                    <li>継続相と完了相</li>
+                </ul>
+                <div class="progress-container">
+                    <div class="progress-bar" style="width: 42%"></div>
+                </div>
+                <a href="pages/day3.html" class="study-button">学習を始める</a>
+            </div>
+
+            <div class="study-card">
+                <div class="day-label">Day 4</div>
+                <h2>関係詞</h2>
+                <ul>
+                    <li>関係代名詞の基本</li>
+                    <li>関係副詞の使用法</li>
+                    <li>制限用法と非制限用法</li>
+                    <li>複合関係詞</li>
+                </ul>
+                <div class="progress-container">
+                    <div class="progress-bar" style="width: 56%"></div>
+                </div>
+                <a href="pages/day4.html" class="study-button">学習を始める</a>
+            </div>
+
+            <div class="study-card">
+                <div class="day-label">Day 5</div>
+                <h2>仮定法と前置詞</h2>
+                <ul>
+                    <li>仮定法現在</li>
+                    <li>仮定法過去</li>
+                    <li>仮定法過去完了</li>
+                    <li>基本的な前置詞の用法</li>
+                </ul>
+                <div class="progress-container">
+                    <div class="progress-bar" style="width: 70%"></div>
+                </div>
+                <a href="pages/day5.html" class="study-button">学習を始める</a>
+            </div>
+
+            <div class="study-card">
+                <div class="day-label">Day 6</div>
+                <h2>接続詞と副詞節</h2>
+                <ul>
+                    <li>等位接続詞</li>
+                    <li>従属接続詞</li>
+                    <li>副詞節の種類</li>
+                    <li>時間と条件の表現</li>
+                </ul>
+                <div class="progress-container">
+                    <div class="progress-bar" style="width: 84%"></div>
+                </div>
+                <a href="pages/day6.html" class="study-button">学習を始める</a>
+            </div>
+
+            <div class="study-card">
+                <div class="day-label">Day 7</div>
+                <h2>受動態とその他の文法項目</h2>
+                <ul>
+                    <li>受動態の基本形</li>
+                    <li>助動詞との組み合わせ</li>
+                    <li>不定詞と動名詞</li>
+                    <li>分詞構文</li>
+                </ul>
+                <div class="progress-container">
+                    <div class="progress-bar" style="width: 100%"></div>
+                </div>
+                <a href="pages/day7.html" class="study-button">学習を始める</a>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 TOEIC文法学習プログラム. All rights reserved.</p>
+    </footer>
 </body>
 </html>
